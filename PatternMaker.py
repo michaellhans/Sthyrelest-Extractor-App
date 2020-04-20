@@ -1,19 +1,12 @@
-number = "\d*"
-bulanPanjang = ["januari", "februari", "maret", "april", "mei", "juni", "juli", "agustus", "september", "oktober", "november", "desember"]
-bulanSingkat = ["jan", "feb", "mar", "apr", "mei", "jun", "jul", "ags", "sept", "okt", "nov", "des"]
-monthLong = ["january", "february", "maret", "april", "may", "june", "july", "augustus", "september", "october", "november","december"]
-countAble = ["kasus", "orang", "manusia"]
+from nltk.tokenize import sent_tokenize, word_tokenize
 
-def Literal(pattern):
-    result = '[' + pattern + ']'
-    return result
+def ReadText(fileName):
+    f = open("test/"+fileName, "r")
+    text = f.read()
+    f.close()
+    return text
 
-def PatternMaker():
-    global countAble
-    for pattern in countAble:
-        pattern = number + ' ' + pattern
-        print(pattern)
-    return countAble
-
-print(countAble)
-print(PatternMaker())
+text = ReadText("uji2.txt")
+print(text)
+print("dipecah menjadi")
+print(sent_tokenize(text))

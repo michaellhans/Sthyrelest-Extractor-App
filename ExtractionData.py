@@ -2,18 +2,17 @@
 # Tugas Kecil 4 - Ekstraksi Informasi dengan KMP
 # Created by: 13518056 / Michael Hans
 
-# from nltk.tokenize import sent_tokenize, word_tokenize
-# data = "All work and no play makes jack dull boy. All work and no play makes jack a dull boy."
-# print(sent_tokenize(data))
-
+from nltk.tokenize import sent_tokenize, word_tokenize
 import re
 
 # Kamus Regular Expression
-numberFirstFormat = '(?:(?:\d{1,3}\.?)(?:\d*) Orang)'
+countAble= '(?:kasus|orang|manusia|korban|jiwa|pasien)'
+numberFirstFormat = "(?:(?:\d{1,3}\.?)*(?:\d+) %s)" % (countAble)
+# print(numberFirstFormat)
 numberEnum = '(?:satu|dua|tiga|empat|lima|enam|tujuh|delapan|sembilan|sepuluh|puluh|ribu|juta)'
-numberSecondFormat = "(?:(?:%s )+%s)" % (numberEnum, numberEnum)
+numberSecondFormat = "(?:(?:%s )+%s %s)" % (numberEnum, numberEnum, countAble)
+# print(numberSecondFormat)
 genericNumber = re.compile("(?:%s|%s)" % (numberFirstFormat, numberSecondFormat))
-# countAble = ["kasus", "orang", "manusia", "korban", "jiwa"]
 
 # Construct Date First Format
 datenum = '(?:\d{1,2})'
@@ -28,8 +27,18 @@ dateSecondFormat = "(?:\d{1,2}/\d{1,2}/\d{4})"
 # Construct Date Third Format
 dateThirdFormat = '(?:kemarin|besok|hari ini|lusa)'
 
-genericDate = re.compile("(?:%s|%s|%s)" % (dateFirstFormat, dateThirdFormat, dateSecondFormat))
-print(dateFirstFormat)
+# Construct Format for Time
+timeFirstFormat = '(?:\d{2}:\d{2} wib)'
+timeSecondFormat = '(?:pukul \d{2}\.\d{2} wib)'
+timeThirdFormat = '(?:pagi|siang|sore|malam)'
+
+# Combination of Date and Time
+dateTimeFull = "(?:%s,? (?:%s|%s))" % (dateFirstFormat, timeFirstFormat, timeSecondFormat)
+
+genericDate = "(?:%s|%s|%s)" % (dateFirstFormat, dateSecondFormat, dateThirdFormat)
+genericTime = "(?:%s|%s|%s)" % (timeFirstFormat, timeSecondFormat, timeThirdFormat)
+genericDateTime = re.compile("(?:%s|%s|%s)" % (dateTimeFull,genericDate, genericTime))
+# print(dateFirstFormat)
 
 # Fungsi / Prosedur
 # Mengembalikan string dari pembacaan pada sebuah fileName
@@ -47,29 +56,56 @@ def RegexPatternMatching(text, pattern):
 # Mengekstrak data angka dari sebuah kalimat
 def FindNumber(sentence):
     angka = re.findall(genericNumber, sentence)
-    return angka
+    if (len(angka) == 0):
+        return "Tidak diketahui"
+    else:
+        return angka[0]
 
 # Mengekstrak data tanggal dari sebuah kalimat
 def FindDate(sentence):
-    tanggal = re.findall(genericDate, sentence)
-    return tanggal
+    tanggal = re.findall(genericDateTime, sentence)
+    if (len(tanggal) == 0):
+        return "Tidak diketahui"
+    else:
+        return tanggal[0]
 
 # Kamus Data
-pattern = []        # menyimpan nilai dari pattern
-text = []           # menyimpan string dari sebuah text yang dibaca
+pattern = []            # menyimpan nilai dari pattern
+text = []               # menyimpan string dari sebuah text yang dibaca
+sentence = []           # menyimpan daftar kalimat yang telah diparsing
+sentencePattern = []    # menyimpan daftar kalimat yang mempunyai pattern
 
 # Algoritma Utama
+print("IF2211 - Strategi Algoritma")
+print("Tugas Kecil 4 - Ekstraksi Informasi")
+print("Sthyrelest - Data Extractor Application")
+print("Created by: 13518056 / Michael Hans")
+print()
 pattern = input("Masukkan pattern yang diinginkan: ")
 fileName = input("Masukkan nama file yang ingin dibaca: ")
+print()
 text = ReadText(fileName)
-print(text)
+text = text.lower()
+sentence = sent_tokenize(text)
 
 # Pattern Matching
-if (RegexPatternMatching(text, pattern)):
-    print(pattern,"ditemukan")
-    jumlah = FindNumber(text)
-    tanggal = FindDate(text)
-    print("Jumlah: ", jumlah)
-    print("Tanggal: ", tanggal)
-else:
-    print(pattern,"tidak ditemukan")
+for i in range(len(sentence)):
+    if (RegexPatternMatching(sentence[i], pattern)):
+        sentencePattern.append(sentence[i])
+
+for i in range(len(sentencePattern)):
+    print(str(i+1)+". ",sentencePattern[i].capitalize())
+    jumlah = FindNumber(sentencePattern[i])
+    tanggal = FindDate(sentencePattern[i])
+    print("Jumlah   : ", jumlah.capitalize())
+    print("Tanggal  : ", tanggal.capitalize())
+    print()
+    # if (RegexPatternMatching(sentence[i], pattern)):
+    #     print(pattern,"ditemukan")
+    #     jumlah = FindNumber(sentence[i])
+    #     tanggal = FindDate(sentence[i])
+    #     print("Jumlah: ", jumlah)
+    #     print("Tanggal: ", tanggal)
+    # else:
+    #     print(pattern,"tidak ditemukan")
+    # print()
