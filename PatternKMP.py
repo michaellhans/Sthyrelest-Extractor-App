@@ -1,6 +1,4 @@
-# IF2211 - Strategi Algoritma
-# Tugas Kecil 4 - Ekstraksi Informasi dengan KMP
-# Created by: 13518056 / Michael Hans
+# Modul Pattern Matching Metode 2: Algoritma KMP
 
 # Fungsi / Prosedur
 # Mengembalikan list of prefix dan suffix dari sebuah pattern
@@ -17,13 +15,6 @@ def PrefixSuffixInit(pattern, k):
         suffix.append(sufsub)
     suffix.pop()
     return prefix, suffix
-
-# Mengembalikan string dari pembacaan pada sebuah fileName
-def ReadText(fileName):
-    f = open("test/"+fileName, "r")
-    text = f.read()
-    f.close()
-    return text
 
 # Mengembalikan list yang berisi border function
 def KMPBorderFunction(pattern):
@@ -42,7 +33,8 @@ def KMPBorderFunction(pattern):
     return borderFunction
 
 # Mencari banyaknya pattern dalam sebuah text
-def KMPPatternMatching(text, pattern, borderFunction):
+def KMPPatternMatching(text, pattern):
+    borderFunction = KMPBorderFunction(pattern)
     count = 0
     lengthText = len(text)
     lengthPattern = len(pattern)
@@ -59,21 +51,13 @@ def KMPPatternMatching(text, pattern, borderFunction):
                 j = 0
                 i += 1
         if (j >= lengthPattern):
-            count = count + 1
-            i += 1
-    return count
+            return True
+    return False
 
-# Kamus Data
-pattern = []   # menyimpan nilai dari pattern
-text = []      # menyimpan string dari sebuah text yang dibaca
-
-# Algoritma Utama
-pattern = input("Masukkan pattern yang diinginkan: ")
-fileName = input("Masukkan nama file yang ingin dibaca: ")
-borderFunction = KMPBorderFunction(pattern)
-text = ReadText(fileName)
-print(text)
-
-# Pattern Matching
-count = KMPPatternMatching(text, pattern, borderFunction)
-print(pattern,"ditemukan sebanyak",count)
+# Mengembalikan kalimat-kalimat yang mengandung pattern
+def GetPatternKMPSentence(sentence, pattern):
+    sentencePattern = []
+    for i in range(len(sentence)):
+        if (KMPPatternMatching(sentence[i], pattern)):
+            sentencePattern.append(sentence[i])
+    return sentencePattern

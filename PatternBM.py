@@ -1,15 +1,6 @@
-# IF2211 - Strategi Algoritma
-# Tugas Kecil 4 - Ekstraksi Informasi dengan KMP
-# Created by: 13518056 / Michael Hans
+# Modul Pattern Matching Metode 1: Boyer-Moore
 
 # Fungsi / Prosedur
-# Mengembalikan string dari pembacaan pada sebuah fileName
-def ReadText(fileName):
-    f = open("test/"+fileName, "r")
-    text = f.read()
-    f.close()
-    return text
-
 # Mengembalikan posisi kemunculan terakhir character dalam pattern
 def GetLastOccurance(pattern, character):
     position = -1
@@ -30,8 +21,10 @@ def BMLastOccurance(text, pattern):
         lastOccurance.update({char : value})
     return lastOccurance
 
-# Mencari banyaknya pattern dalam sebuah text
-def BMPatternMatching(text, pattern, lastOccurance):
+# Mengembalikan True apabila pattern ditemukan dalam text
+def BMPatternMatching(text, pattern):
+    lastOccurance = {}
+    lastOccurance = BMLastOccurance(text,pattern)
     count = 0
     lengthText = len(text)
     lengthPattern = len(pattern)
@@ -53,22 +46,13 @@ def BMPatternMatching(text, pattern, lastOccurance):
                 j = lengthPattern - 1
         i += 1
         if (j < 0):
-            count = count + 1
-            i += 2*(lengthPattern - 1) + 1
-    return count
+            return True
+    return False
 
-# Kamus Data
-pattern = []        # menyimpan nilai dari pattern
-text = []           # menyimpan string dari sebuah text yang dibaca
-lastOccurance = {}  # menyimpan kemunculan terakhir karakter unik dalam teks
-
-# Algoritma Utama
-pattern = input("Masukkan pattern yang diinginkan: ")
-fileName = input("Masukkan nama file yang ingin dibaca: ")
-text = ReadText(fileName)
-lastOccurance = BMLastOccurance(text,pattern)
-print(text)
-
-# Pattern Matching
-count = BMPatternMatching(text, pattern, lastOccurance)
-print(pattern,"ditemukan sebanyak",count)
+# Mengembalikan kalimat-kalimat yang mengandung pattern
+def GetPatternBMSentence(sentence, pattern):
+    sentencePattern = []
+    for i in range(len(sentence)):
+        if (BMPatternMatching(sentence[i], pattern)):
+            sentencePattern.append(sentence[i])
+    return sentencePattern
