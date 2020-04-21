@@ -38,9 +38,13 @@ python
 import nltk
 nltk.download('popular')
 ```
-5. Semua prerequisites sudah disiapkan dengan baik.
+5. Lakukan penginstalan Regular Expression dengan command sebagai berikut pada terminal biasa.
+```
+pip install regex
+```
+6. Semua prerequisites sudah disiapkan dengan baik.
 
-### How to Run Program
+## How to Run Program
 1. Untuk menjalankan program, pastikan command sudah berada dalam directory `./src`, lalu jalankan command sebagai berikut.
 ```
 python Application.py
@@ -66,9 +70,18 @@ localhost:5000
 ## Built With
 
 * [Flask](https://flask.palletsprojects.com/en/1.1.x/) - Integrasi Backend dan FrontEnd
-* [HTML] - Front End dari Aplikasi
-* [CSS] - Front End dari Aplikasi
+* HTML - Front End dari Aplikasi
+* CSS - Front End dari Aplikasi
 * [Python](https://www.python.org/) - Back End dari Aplikasi
+
+## Testing
+
+Untuk menjalankan testing pada program pengekstrak, dapat dijalankan program secara command line interface sebagai berikut.
+1. Untuk menjalankan program, pastikan command sudah berada dalam directory `./src`, lalu jalankan command sebagai berikut.
+```
+python BackEndTest.py
+```
+2. Masukkan input-input yang bersesuaian sesuai dengan yang diminta oleh program.
 
 ## Authors
 
