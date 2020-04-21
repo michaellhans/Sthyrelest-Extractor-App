@@ -6,7 +6,7 @@
             <a class="mr-2" href="#">Michael Hans</a>
             <small class="text-muted">Selasa, 21 April 2020</small>
         </div>
-        <h2><a class="article-title" href="#">Sthyrelest Extraction Application</a></h2>
+        <h2><a class="article-title" href="#">Sthyrelest Data Extractor</a></h2>
         <p class="article-content">
             <label for="fname"><b>Keyword: </b>{{keyword}}</label>
             <label for="method"><b>Metode Pattern Matching: </b>{{pattern}}</label>
@@ -35,10 +35,9 @@
                     <b>Kalimat-kalimat yang mengandung <i>{{keyword}}</i>: </b>
                     <ol>
                     {%for sentence in file[2]%}
-                        <li>{{sentence[0]|safe}}<br>
+                        <li>{{sentence[0]|safe}} ({{file[0]}})<br>
                         Jumlah  : <b>{{sentence[1]}}</b><br> 
-                        Waktu   : <b>{{sentence[2]}}</b><br>
-                        Perihal : <b>{{file[0]}}</b><br>
+                        Waktu   : <b>{{sentence[2]}}</b><br><br>
                         </li>
                     {%endfor%}
                     </ol>

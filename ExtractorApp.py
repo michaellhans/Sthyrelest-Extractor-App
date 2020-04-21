@@ -12,7 +12,7 @@ def BoldMatches(sentence, matches):
 # Memulai Proses Ekstraksi Data dari beberapa Input Files
 def BeginExtraction(keyword, method, files):
     listOfResult = []         # menyimpan daftar teks dari seluruh teks yang dipilih
-    # Struktur listOfResult: (namafile, teks, extractedSentence)
+    # Struktur listOfResult: (namafile, teks, extractedSentence, jumlahSentence)
     # Struktur extractedSentence : (sentencePattern, jumlah, tanggal)
 
     # Algoritma Utama
