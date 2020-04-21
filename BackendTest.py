@@ -39,11 +39,14 @@ elif (choice == 2):
 elif (choice == 3):
     sentencePattern = GetPatternRegex(sentence, pattern)
 
-# Extraction Data
-for i in range(len(sentencePattern)):
-    print(str(i+1)+". ",sentencePattern[i].capitalize())
-    jumlah = FindNumber(sentencePattern[i])
-    tanggal = FindDate(sentencePattern[i])
-    print("Jumlah   : ", jumlah.capitalize())
-    print("Tanggal  : ", tanggal.capitalize())
-    print()
+if len(sentencePattern) == 0:
+    print("Pencarian tidak ditemukan")
+else:
+    # Extraction Data
+    for i in range(len(sentencePattern)):
+        print(str(i+1)+". ",sentencePattern[i].capitalize())
+        jumlah = FindNumber(sentencePattern[i])
+        tanggal = FindDate(sentencePattern[i])
+        print("Jumlah   : ", jumlah.capitalize())
+        print("Tanggal  : ", tanggal.capitalize())
+        print()
