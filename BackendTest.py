@@ -1,13 +1,15 @@
 # IF2211 - Strategi Algoritma
 # Tugas Kecil 4 - Ekstraksi Informasi dengan KMP
+# Pengujian Program melalui Command Prompt
 # Created by: 13518056 / Michael Hans
 
 from PatternBM import *
 from PatternKMP import *
 from PatternRegex import *
 from ExtractorData import *
+from ExtractorApp import *
 
-# Kamus Data
+# # Kamus Data
 pattern = []            # menyimpan nilai dari pattern
 text = []               # menyimpan string dari sebuah text yang dibaca
 sentence = []           # menyimpan daftar kalimat yang telah diparsing

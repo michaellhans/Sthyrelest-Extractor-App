@@ -19,6 +19,7 @@ day = '(?:senin|selasa|rabu|kamis|jumat|sabtu|minggu)'
 dateFirstFormat = "(?:%s, %s (?:%s|%s) %s)" % (day, datenum, bulan, bulanSingkat, tahun)
 dateSecondFormat = "(?:\d{1,2}/\d{1,2}/\d{4})"
 dateThirdFormat = '(?:kemarin|besok|hari ini|lusa)'
+dateOtherFormat = "(?:%s|%s|%s|%s|%s)" % (day, datenum, bulan, bulanSingkat, tahun)
 
 # Construct Format for Time
 timeFirstFormat = '(?:\d{2}:\d{2} wib)'
@@ -56,3 +57,11 @@ def FindDate(sentence):
         return "Tidak diketahui"
     else:
         return tanggal[0]
+      
+# Mengekstrak data artikel dari sebuah teks
+def ArticleDate(text):
+    tanggal = re.findall(genericDateTime, text)
+    if (len(tanggal) == 0):
+        return "Tidak diketahui"
+    else:
+        return max(tanggal , key = len)
