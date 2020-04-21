@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, redirect, render_template, url_for, request
 app = Flask(__name__)
 
 posts = [
@@ -10,12 +10,21 @@ posts = [
     }
 ]
 
-
-@app.route("/")
-@app.route("/home")
+@app.route("/", methods=["POST","GET"])
+@app.route("/home", methods=["POST","GET"])
 def home():
+    if request.method == "POST":
+        keyword = request.form['keyword']
+        pattern = request.form['matchmethod']
+        files = request.form.getlist('myfile')
+        return redirect(url_for("result", kyw = keyword, ptr = pattern, fls = files))
     return render_template('home.html', posts=posts)
 
+@app.route("/result")
+def result():
+    return render_template("result.html", keyword=request.args.get('kyw'), pattern=request.args.get('ptr')
+    ,files = request.args.getlist('fls'), posts = posts)
+    
 
 @app.route("/about")
 def about():
