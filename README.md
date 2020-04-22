@@ -49,7 +49,7 @@ pip install regex
 ```
 python Application.py
 ```
-2. Localhost Flask akan dijalankan. Untuk menampilkan aplikasi web, buka browser kemudian masuk ke laman berikut ini.
+2. Tunggu kira-kira 5-15 detik. Localhost Flask akan dijalankan. Untuk menampilkan aplikasi web, buka browser kemudian masuk ke laman berikut ini.
 ```
 localhost:5000
 ```

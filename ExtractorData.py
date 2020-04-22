@@ -4,7 +4,7 @@ from nltk.tokenize import sent_tokenize, word_tokenize
 import re
 
 # Kamus Regular Expression
-countAble= '(?:kasus|orang|manusia|korban|jiwa|pasien)'
+countAble= '(?:kasus|orang|manusia|korban|jiwa|pasien|meninggal|sembuh|kematian)'
 numberFirstFormat = "(?:(?:\d{1,3}\.?)*(?:\d+) %s)" % (countAble)
 numberEnum = '(?:satu|dua|tiga|empat|lima|enam|tujuh|delapan|sembilan|sepuluh|puluh|ribu|juta)'
 numberSecondFormat = "(?:(?:%s )+%s %s)" % (numberEnum, numberEnum, countAble)
@@ -30,7 +30,7 @@ timeThirdFormat = '(?:pagi|siang|sore|malam)'
 dateTimeFull = "(?:%s,? (?:%s|%s))" % (dateFirstFormat, timeFirstFormat, timeSecondFormat)
 
 # Combine all things into one regular expression
-genericDate = "(?:%s|%s|%s)" % (dateFirstFormat, dateSecondFormat, dateThirdFormat)
+genericDate = "(?:%s|%s|%s|%s)" % (dateFirstFormat, dateSecondFormat, dateThirdFormat, dateOtherFormat)
 genericTime = "(?:%s|%s|%s)" % (timeFirstFormat, timeSecondFormat, timeThirdFormat)
 genericDateTime = re.compile("(?:%s|%s|%s)" % (dateTimeFull,genericDate, genericTime))
 
