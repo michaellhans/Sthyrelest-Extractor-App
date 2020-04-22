@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+{% block content %}
+    <article class="media content-section">
+        <div class="media-body">
+        <div class="article-metadata">
+            <a class="mr-2" href="#">Michael Hans</a>
+            <small class="text-muted">Selasa, 21 April 2020</small>
+        </div>
+        <h2><a class="article-title" href="#">Sthyrelest Data Extractor</a></h2>
+        <p class="article-content">
+            <label for="fname"><b>Keyword: </b>{{keyword}}</label>
+            <label for="method"><b>Metode Pattern Matching: </b>{{pattern}}</label>
+            <label for="method"><b>Daftar File yang Diextract: </b></label>
+            <ol>
+            {%for file in files%} 
+                <li>{{file}}</li> 
+            {%endfor%}
+            </ol> 
+        </p>
+        </div>
+    </article> 
+    {% for file in result %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">Michael Hans</a>
+              <small class="text-muted">21 April 2020</small>
+            </div>
+            <h2><a class="article-title" href="#">{{ file[0] }}</a></h2>
+            <p class="article-content">
+                <b>Isi Artikel: </b>
+                {{file[1]}}
+                {%if (file[3] > 0)%}
+                    <b><u> Pencarian keyword {{keyword}} ditemukan dalam {{file[3]}} kalimat</u></b><br>
+                    <b>Kalimat-kalimat yang mengandung <i>{{keyword}}</i>: </b>
+                    <ol>
+                    {%for sentence in file[2]%}
+                        <li>{{sentence[0]|safe}} ({{file[0]}})<br>
+                        Jumlah  : <b>{{sentence[1]}}</b><br> 
+                        Waktu   : <b>{{sentence[2]}}</b><br><br>
+                        </li>
+                    {%endfor%}
+                    </ol>
+                {%else%}
+                    <b><u> Pencarian keyword {{keyword}} tidak ditemukan </u></b><br> 
+                {%endif%}
+            </p>
+          </div>
+        </article>
+    {% endfor %}  
+{% endblock content %}
